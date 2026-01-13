@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magical Birthday Blossom</title>
+    <style>
+        :root {
+            --magic-gold: #ffd700;
+            --velvet: #30013b;
+            --parchment: #fffaf0;
+            --accent: #ff4d6d;
+        }
+
+        body {
+            background: radial-gradient(circle, #2d132c, #000);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* --- Background Floating Emojis --- */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .float-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.2;
+            animation: rise 10s infinite linear;
+        }
+        @keyframes rise {
+            from { transform: translateY(110vh) rotate(0deg); }
+            to { transform: translateY(-20vh) rotate(360deg); }
+        }
+
+        /* --- Main Box & Ribbon --- */
+        .box {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            background: var(--velvet);
+            border: 4px solid var(--magic-gold);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+        }
+
+        .ribbon {
+            position: absolute;
+            width: 60px;
+            height: 110%;
+            background: linear-gradient(to right, #b8860b, var(--magic-gold), #b8860b);
+            cursor: pointer;
+            z-index: 11;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 0 20px var(--magic-gold);
+            transition: 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .ribbon.open { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+
+        /* --- Wide 4-Option Quiz --- */
+        #quiz-container {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(45, 19, 44, 0.98);
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            z-index: 20;
+            width: 90%;
+            max-width: 500px;
+            border: 3px solid var(--magic-gold);
+        }
+
+        .question-text { font-size: 1.8rem; margin-bottom: 20px; color: var(--magic-gold); }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .opt {
+            background: white;
+            color: #2d132c;
+            padding: 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1rem;
+        }
+        .opt span { font-size: 2rem; margin-bottom: 5px; }
+        .opt:hover { background: var(--magic-gold); transform: scale(1.05); }
+
+        /* --- Blossom Images Animation --- */
+        .collage-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .sis-photo {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border: 6px solid white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            opacity: 0;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Far corner spread (Blossom) */
+        .collage-active .p1 { opacity: 1; transform: translate(-170%, -160%) scale(1) rotate(-10deg); }
+        .collage-active .p2 { opacity: 1; transform: translate(70%, -170%) scale(1.1) rotate(15deg); }
+        .collage-active .p3 { opacity: 1; transform: translate(-180%, 60%) scale(1) rotate(-8deg); }
+        .collage-active .p4 { opacity: 1; transform: translate(80%, 70%) scale(0.9) rotate(10deg); }
+        .collage-active .p5 { opacity: 1; transform: translate(-50%, -240%) scale(1) rotate(0deg); }
+
+        /* Vortex Effect back to Ribbon */
+        .vortex-out {
+            opacity: 0 !important;
+            transform: translate(-50%, -50%) scale(0) rotate(1080deg) !important;
+            transition: all 1s ease-in !important;
+        }
+
+        /* --- Final Greeting Scroll --- */
+        .scroll {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scaleY(0);
+            width: 300px;
+            background: var(--parchment);
+            color: #3e2723;
+            padding: 30px;
+            z-index: 30;
+            text-align: center;
+            transform-origin: center;
+            transition: 0.8s ease;
+            border-radius: 10px;
+        }
+        .scroll.active { transform: translate(-50%, -50%) scaleY(1); }
+
+        .shake { animation: shake 0.4s; }
+        @keyframes shake {
+            0%, 100% { transform: translate(-50%, -50%); }
+            25% { transform: translate(-54%, -50%); }
+            75% { transform: translate(-46%, -50%); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer" id="bgLayer"></div>
+
+    <div class="collage-container" id="collage">
+        <img src="https://scontent-ccu1-2.xx.fbcdn.net/v/t39.30808-6/615247320_1415592556977344_4078356223676505501_n.jpg?_nc_cat=106&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=vvaY1aAJJOAQ7kNvwHz8vjI&_nc_oc=Admqh-RZ6Lptyx_SSHorRXkHVSeNHydBgtyNQ7qTwK2ClJZ_O5tLgpNtOHiOM1S-GWc&_nc_zt=23&_nc_ht=scontent-ccu1-2.xx&_nc_gid=VGf112qfrWxgSlM_FnmrDw&oh=00_Afr0SIc-Pj-5VTYAJ29R-UFeVnocHPuG48dizjqW7ibTjA&oe=696BA2E8" class="sis-photo p1">
+        <img src="https://scontent-ccu1-2.xx.fbcdn.net/v/t39.30808-6/615202018_1415595013643765_1212681441341338232_n.jpg?_nc_cat=106&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=Se2mCX-oWeAQ7kNvwHTR-9S&_nc_oc=AdkJ9HbeRbZOkHQVBPoYo7kk1hrmGSa_xZrcCzh65WX6I6VxzjlL3BLIclGIZe0JHBA&_nc_zt=23&_nc_ht=scontent-ccu1-2.xx&_nc_gid=mDYCDh_TjUCIScp0qip4PQ&oh=00_Afr5eDk-DL0j2-iY2JDfWgyTMJ2gzojX8yBW6rYRw_wHKg&oe=696BA70A" class="sis-photo p2">
+        <img src="https://scontent-ccu2-1.xx.fbcdn.net/v/t39.30808-6/615773146_1415586796977920_2817699115956117722_n.jpg?_nc_cat=109&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=zZ3nD7j1uGAQ7kNvwFCyxrn&_nc_oc=AdkZhXAstRWUwrrrFcyWuWmK3vJUDL25DctJwWN9KH1s3UNKFrLzkN6SE_Ee_EkoNiE&_nc_zt=23&_nc_ht=scontent-ccu2-1.xx&_nc_gid=nPpP1tMqwpWVzhoNMtg1dg&oh=00_AfqnQfOVCj0riDI7VOStepuXhuOOFkD8S_HnkiE9VIslUg&oe=696BA7F0" class="sis-photo p3">
+        <img src="https://scontent-ccu1-1.xx.fbcdn.net/v/t39.30808-6/560053185_1336870361516231_3958702915694407047_n.jpg?_nc_cat=100&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=tpEe95DTBrYQ7kNvwHrmLJE&_nc_oc=Adm0b5NFlOGDVB8jWm_vJNizb73LTNcoDRrkxnXRY9RyxWeKfO9aFzhH8F1KZPK6LME&_nc_zt=23&_nc_ht=scontent-ccu1-1.xx&_nc_gid=VbIUzr_4k4U9TGT2GZn01Q&oh=00_AfrZ0NeiiTX8fGv3BFkHIHT0uKUPyU9BtSEJeSYM0bCriQ&oe=696BA190" class="sis-photo p4">
+        <img src="https://scontent-ccu1-2.xx.fbcdn.net/v/t39.30808-6/493998309_1207161471153788_6048227232903913930_n.jpg?_nc_cat=106&_nc_cb=99be929b-ad57045b&ccb=1-7&_nc_sid=127cfc&_nc_ohc=a6oEtJj9rqEQ7kNvwHki3Tr&_nc_oc=AdkuqscwgwODXf24y4qhB9S1zmALHDfcKFNroZh_k5I3PlQUrm6yKbBArLm173eBHXs&_nc_zt=23&_nc_ht=scontent-ccu1-2.xx&_nc_gid=zum2MQa6RoL4CgLidwdDXw&oh=00_AfqcCoBuNyvuqZDhZ5u00LDY8K0TDcJQlBWAqkO86wRJRg&oe=696B9859" class="sis-photo p5">
+    </div>
+
+    <div class="box" id="mainBox">
+        <div class="ribbon" id="ribbon" onclick="startQuiz()">🎀</div>
+        <p style="margin-top: 50px; font-size: 0.8rem; color: var(--magic-gold);">TOUCH THE RIBBON</p>
+    </div>
+
+    <div id="quiz-container">
+        <div class="question-text" id="question">Loading...</div>
+        <div class="options-grid" id="options"></div>
+        <div id="feedback" style="height: 20px; color: var(--accent); margin-top: 15px; font-weight: bold;"></div>
+    </div>
+
+    <div class="scroll" id="scroll">
+        <h2 style="color: #d81b60; margin:0;">Happy Birthday! 🎂</h2>
+        <hr border="0" style="border-top:1px solid #eee; margin: 15px 0;">
+        <p><b>To My Dearest Sister:</b></p>
+        <p>You are a genius! I hope these memories and blossoms fill your heart with joy today. You deserve everything!</p>
+        <button onclick="closeMagic()" style="background:var(--velvet); color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold;">Close Magic 🪄</button>
+    </div>
+
+    <script>
+        const quizData = [
+            { q: "A is for...?", opts: ["Apple 🍎", "Ball ⚽", "Cat 🐱", "Dog 🐶"], correct: 0 },
+            { q: "B is for...?", opts: ["Ant 🐜", "Bear 🐻", "Egg 🥚", "Fish 🐟"], correct: 1 },
+            { q: "C is for...?", opts: ["Doll 🪆", "Goat 🐐", "Cake 🎂", "Ice 🧊"], correct: 2 },
+            { q: "D is for...?", opts: ["Duck 🦆", "Jam 🍓", "Kite 🪁", "Lion 🦁"], correct: 0 },
+            { q: "E is for...?", opts: ["Moon 🌙", "Net 🕸️", "Owl 🦉", "Elephant 🐘"], correct: 3 }
+        ];
+
+        let currentStep = 0;
+
+        // --- Background Emojis ---
+        const bgLayer = document.getElementById('bgLayer');
+        const symbols = ['✨', '🎈', '🎉', '🌟', '💖'];
+        for(let i=0; i<15; i++) {
+            let el = document.createElement('div');
+            el.className = 'float-emoji';
+            el.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDelay = Math.random() * 8 + 's';
+            bgLayer.appendChild(el);
+        }
+
+        function startQuiz() {
+            document.getElementById('ribbon').classList.add('open');
+            setTimeout(() => {
+                document.getElementById('quiz-container').style.display = 'block';
+                loadQuestion();
+            }, 800);
+        }
+
+        function loadQuestion() {
+            const data = quizData[currentStep];
+            document.getElementById('question').innerText = data.q;
+            let html = "";
+            data.opts.forEach((op, i) => {
+                const parts = op.split(' ');
+                html += `<div class="opt" onclick="check(${i})"><span>${parts[1]}</span>${parts[0]}</div>`;
+            });
+            document.getElementById('options').innerHTML = html;
+            document.getElementById('feedback').innerText = "";
+        }
+
+        function check(i) {
+            if (i === quizData[currentStep].correct) {
+                currentStep++;
+                if (currentStep < quizData.length) { loadQuestion(); } 
+                else { unlock(); }
+            } else {
+                document.getElementById('quiz-container').classList.add('shake');
+                document.getElementById('feedback').innerText = "Oops! Use your birthday magic! ✨";
+                setTimeout(() => document.getElementById('quiz-container').classList.remove('shake'), 400);
+            }
+        }
+
+        function unlock() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('collage').classList.add('collage-active');
+            document.getElementById('scroll').classList.add('active');
+        }
+
+        function closeMagic() {
+            const photos = document.querySelectorAll('.sis-photo');
+            photos.forEach(p => p.classList.add('vortex-out'));
+            document.getElementById('scroll').classList.remove('active');
+
+            setTimeout(() => {
+                document.getElementById('collage').classList.remove('collage-active');
+                photos.forEach(p => p.classList.remove('vortex-out'));
+                document.getElementById('ribbon').classList.remove('open');
+                currentStep = 0;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
