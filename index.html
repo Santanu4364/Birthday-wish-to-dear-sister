@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magical Birthday Blossom</title>
-    
-<link rel="icon" type="image/png" href="https://png.pngtree.com/element_our/20200702/ourmid/pngtree-watercolor-hand-painted-orange-flower-bouquet-bouquet-png-free-element-image_2283784.jpg">
+    <title>Starlit Birthday Surprise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://png.pngtree.com/element_our/20200702/ourmid/pngtree-watercolor-hand-painted-orange-flower-bouquet-bouquet-png-free-element-image_2283784.jpg">
     <style>
         :root {
-            --magic-gold: #ffd700;
-            --velvet: #30013b;
+            --magic-gold: #ffd166;
+            --velvet: #2b0b3f;
             --parchment: #fffaf0;
-            --accent: #ff4d6d;
+            --accent: #ff6b9a;
+            --aura: #9d4edd;
+            --sky: #0a0724;
         }
 
         body {
-            background: radial-gradient(circle, #2d132c, #000);
+            background: radial-gradient(circle at top, #2c0d3a 0%, var(--sky) 45%, #05030e 100%);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
             color: white;
         }
@@ -44,33 +48,45 @@
             to { transform: translateY(-20vh) rotate(360deg); }
         }
 
+        .aurora {
+            position: fixed;
+            inset: -30% 0 0 0;
+            background: radial-gradient(circle at 20% 20%, rgba(157, 78, 221, 0.35), transparent 50%),
+                        radial-gradient(circle at 80% 30%, rgba(255, 209, 102, 0.25), transparent 45%),
+                        radial-gradient(circle at 50% 70%, rgba(255, 107, 154, 0.2), transparent 55%);
+            filter: blur(12px);
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         /* --- Main Box & Ribbon --- */
         .box {
             position: relative;
-            width: 320px;
-            height: 200px;
-            background: var(--velvet);
-            border: 4px solid var(--magic-gold);
-            border-radius: 20px;
+            width: 340px;
+            height: 220px;
+            background: linear-gradient(160deg, rgba(43, 11, 63, 0.95), rgba(10, 7, 36, 0.9));
+            border: 2px solid rgba(255, 209, 102, 0.8);
+            border-radius: 24px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 25px rgba(255, 209, 102, 0.2);
         }
 
         .ribbon {
             position: absolute;
-            width: 60px;
+            width: 70px;
             height: 110%;
-            background: linear-gradient(to right, #b8860b, var(--magic-gold), #b8860b);
+            background: linear-gradient(to bottom, #ff9ebd, var(--accent), #c73e70);
             cursor: pointer;
             z-index: 11;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 30px;
-            box-shadow: 0 0 20px var(--magic-gold);
+            box-shadow: 0 0 25px rgba(255, 107, 154, 0.7);
             transition: 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
         .ribbon.open { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
@@ -89,9 +105,10 @@
             width: 90%;
             max-width: 500px;
             border: 3px solid var(--magic-gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.45);
         }
 
-        .question-text { font-size: 1.8rem; margin-bottom: 20px; color: var(--magic-gold); }
+        .question-text { font-size: 1.6rem; margin-bottom: 20px; color: var(--magic-gold); }
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
         .opt {
@@ -150,7 +167,7 @@
             position: fixed;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) scaleY(0);
-            width: 300px;
+            width: 320px;
             background: var(--parchment);
             color: #3e2723;
             padding: 30px;
@@ -159,8 +176,15 @@
             transform-origin: center;
             transition: 0.8s ease;
             border-radius: 10px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.45);
         }
         .scroll.active { transform: translate(-50%, -50%) scaleY(1); }
+
+        .scroll h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.3rem;
+            letter-spacing: 1px;
+        }
 
         .shake { animation: shake 0.4s; }
         @keyframes shake {
@@ -172,6 +196,7 @@
 </head>
 <body>
 
+    <div class="aurora"></div>
     <div class="bg-layer" id="bgLayer"></div>
 
     <div class="collage-container" id="collage">
@@ -184,7 +209,7 @@
 
     <div class="box" id="mainBox">
         <div class="ribbon" id="ribbon" onclick="startQuiz()">🎀</div>
-        <p style="margin-top: 50px; font-size: 0.8rem; color: var(--magic-gold);">TOUCH THE RIBBON</p>
+        <p style="margin-top: 55px; font-size: 0.8rem; color: var(--magic-gold); letter-spacing: 2px;">TAP THE RIBBON</p>
     </div>
 
     <div id="quiz-container">
@@ -196,31 +221,30 @@
     <div class="scroll" id="scroll">
         <h2 style="color: #d81b60; margin:0;">Happy Birthday! 🎂</h2>
         <hr border="0" style="border-top:1px solid #eee; margin: 15px 0;">
-        <p><b>To My Dearest Sister:</b></p>
-        <p>You are a genius! I hope these memories and blossoms fill your heart with joy today. You deserve everything!</p>
-        <button onclick="closeMagic()" style="background:var(--velvet); color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold;">Close Magic 🪄</button>
+        <p><b>To My Dearest Friend:</b></p>
+        <p>You light up every room with your kindness, strength, and sparkle. May this year bring bold dreams, soft moments, and endless reasons to smile.</p>
+        <button onclick="closeMagic()" style="background:var(--velvet); color:white; border:none; padding:10px 25px; border-radius:20px; cursor:pointer; font-weight:bold;">Seal the Magic ✨</button>
     </div>
 
     <script>
         const quizData = [
-            { q: "A is for...?", opts: ["Apple 🍎", "Ball ⚽", "Cat 🐱", "Dog 🐶"], correct: 0 },
-            { q: "B is for...?", opts: ["Ant 🐜", "Bear 🐻", "Egg 🥚", "Fish 🐟"], correct: 1 },
-            { q: "C is for...?", opts: ["Doll 🪆", "Goat 🐐", "Cake 🎂", "Ice 🧊"], correct: 2 },
-            { q: "D is for...?", opts: ["Duck 🦆", "Jam 🍓", "Kite 🪁", "Lion 🦁"], correct: 0 },
-            { q: "E is for...?", opts: ["Moon 🌙", "Net 🕸️", "Owl 🦉", "Elephant 🐘"], correct: 3 }
+            { q: "Choose the sparkle that unlocks the wish.", opts: ["Stardust ✨", "Moonbeam 🌙", "Comet ☄️", "Aurora 🌌"], correct: 0 },
+            { q: "Pick the sweetest birthday vibe.", opts: ["Glow 🕯️", "Bloom 🌸", "Chill ❄️", "Wander 🌍"], correct: 1 },
+            { q: "Which charm protects the party?", opts: ["Ribbon 🎀", "Crown 👑", "Heart 💗", "Star ⭐"], correct: 2 }
         ];
 
         let currentStep = 0;
 
         // --- Background Emojis ---
         const bgLayer = document.getElementById('bgLayer');
-        const symbols = ['✨', '🎈', '🎉', '🌟', '💖'];
-        for(let i=0; i<15; i++) {
+        const symbols = ['✨', '🎈', '🎉', '🌟', '💖', '🦋', '🌸'];
+        for(let i=0; i<20; i++) {
             let el = document.createElement('div');
             el.className = 'float-emoji';
             el.innerText = symbols[Math.floor(Math.random()*symbols.length)];
             el.style.left = Math.random() * 100 + 'vw';
             el.style.animationDelay = Math.random() * 8 + 's';
+            el.style.fontSize = (1 + Math.random()) + 'rem';
             bgLayer.appendChild(el);
         }
 
@@ -251,7 +275,7 @@
                 else { unlock(); }
             } else {
                 document.getElementById('quiz-container').classList.add('shake');
-                document.getElementById('feedback').innerText = "Oops! Use your birthday magic! ✨";
+                document.getElementById('feedback').innerText = "Almost! Your birthday magic is close. ✨";
                 setTimeout(() => document.getElementById('quiz-container').classList.remove('shake'), 400);
             }
         }
