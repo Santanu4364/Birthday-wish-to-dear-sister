@@ -1,78 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Future Officer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- Animation & Gallery Libraries -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-zoom.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-thumbnail.min.css" />
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <canvas id="particle-canvas"></canvas>
 
-    <header class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Happy Birthday</h1>
-            <h2 class="hero-subtitle">Future Officer</h2>
-            <div class="scroll-indicator">
-                <span></span>
+    <!-- Large Background Ashoka Chakra (SVG) -->
+    <div id="hero-chakra">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="#1A253A" stroke-width="0.5" />
+            <path d="M12 2V22M2 12H22M4.929 4.929L19.071 19.071M4.929 19.071L19.071 4.929" stroke="#1A253A"
+                stroke-width="0.5" />
+            <path d="M12 12L14.5 7.66998M12 12L7.66998 9.5M12 12L9.5 16.33M12 12L16.33 14.5" stroke="#1A253A"
+                stroke-width="0.5" />
+            <path d="M12 12L16.33 9.5M12 12L14.5 16.33M12 12L7.66998 14.5M12 12L9.5 7.66998" stroke="#1A253A"
+                stroke-width="0.5" />
+            <!-- Inner Circle -->
+            <circle cx="12" cy="12" r="3" stroke="#1A253A" stroke-width="0.5" />
+        </svg>
+    </div>
+
+    <!-- Main Content Area -->
+    <main id="app-container">
+
+        <!-- STAGE 1: INTRO (Report for Duty) -->
+        <div id="stage-intro" class="stage active">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Happy Birthday</h1>
+                <h2 class="hero-subtitle">Future Officer</h2>
+                <div class="mission-btn-container">
+                    <button id="start-mission-btn" class="glow-button">Review Mission</button>
+                </div>
             </div>
         </div>
-    </header>
 
-    <main>
-        <section class="quote-section reveal-on-scroll">
-            <div class="content-card glass-card">
-                <p class="quote-text">"Some people celebrate birthdays.<br>Some celebrate destiny in progress."</p>
-            </div>
-        </section>
+        <!-- STAGE 2: THE BRIEFING (Interactive Cards) -->
+        <div id="stage-briefing" class="stage">
+            <div class="card-container">
+                <!-- Card 1: Ambition -->
+                <div class="mission-card active" data-step="1">
+                    <h3 class="card-title">The Ambition</h3>
+                    <p class="card-text">"Some people celebrate birthdays.<br>You celebrate destiny in progress."</p>
+                    <div class="icon-gold">🦁</div>
+                </div>
 
-        <section class="journey-section reveal-on-scroll">
-            <div class="content-card glass-card">
-                <h3 class="section-title">The Journey</h3>
-                <p class="section-text">
-                    Your path is not for everyone. It demands discipline, sacrifice, and a heart of steel.
-                    Every late night study session, every hidden struggle, is forging the leader you are becoming.
-                </p>
-                <div class="symbol-container">
-                    <!-- Placeholder for Ashoka/Lion symbol or similar motif -->
-                    <div class="ashoka-chakra-motif"></div>
+                <!-- Card 2: The Grind -->
+                <div class="mission-card" data-step="2">
+                    <h3 class="card-title">The Grind</h3>
+                    <p class="card-text">Early mornings. Late nights. The silent battles no one sees.<br>Every page
+                        turned is a step closer.</p>
+                    <div class="icon-gold">📚</div>
+                </div>
+
+                <!-- Card 3: The Qualities -->
+                <div class="mission-card" data-step="3">
+                    <h3 class="card-title">The Officer</h3>
+                    <div class="qualities-grid">
+                        <span>⚖️ Integrity</span>
+                        <span>🦁 Courage</span>
+                        <span>🎯 Discipline</span>
+                        <span>🤝 Empathy</span>
+                    </div>
+                    <p class="card-text">You already wear the uniform in your spirit.</p>
                 </div>
             </div>
-        </section>
 
-        <section class="dream-section reveal-on-scroll">
-            <div class="content-card glass-card">
-                <h3 class="section-title">The Dream</h3>
-                <p class="section-text">
-                    "Your journey is bigger than today. But today deserves to be special."
-                </p>
-                <p class="section-text">
-                    Keep marching towards the LBSNAA gate. The uniform awaits.
+            <div class="briefing-controls">
+                <button id="next-card-btn" class="secondary-button">Next Directive >></button>
+            </div>
+        </div>
+
+        <!-- STAGE 3: CELEBRATION (Finale) -->
+        <div id="stage-celebration" class="stage">
+            <h2 class="section-title">Mission Status: Accomplished</h2>
+
+            <!-- Message -->
+            <div class="final-message glass-card">
+                <h3>To the Future IPS,</h3>
+                <p>
+                    May this year bring you closer to your goal. The nation needs officers like the one you are shaping
+                    yourself to be.
+                    <br><br>
+                    <strong>Happy Birthday!</strong>
                 </p>
             </div>
-        </section>
 
-        <footer class="interactive-footer reveal-on-scroll">
-            <button id="reveal-message-btn" class="glow-button">Open Your Message</button>
-            <div id="hidden-message" class="hidden-message-container hidden">
-                <div class="message-card glass-card">
-                    <h3>To the Future IPS,</h3>
-                    <p>
-                        May this year bring you closer to your goal. The nation needs officers like the one you are shaping yourself to be.
-                        <br><br>
-                        Happy Birthday!
-                    </p>
-                    <button id="close-message-btn" class="secondary-button">Close</button>
-                </div>
+            <!-- Mini Gallery -->
+            <div id="lightgallery" class="gallery-grid-mini">
+                <a href="assets/placeholder.jpg" class="gallery-item glass-card">
+                    <div class="placeholder-img-sm">Memories</div>
+                </a>
+                <a href="assets/placeholder.jpg" class="gallery-item glass-card">
+                    <div class="placeholder-img-sm">Dreams</div>
+                </a>
+                <a href="assets/placeholder.jpg" class="gallery-item glass-card">
+                    <div class="placeholder-img-sm">Joy</div>
+                </a>
             </div>
-        </footer>
+
+            <button id="replay-btn" class="secondary-button" style="margin-top: 2rem;">Replay Mission</button>
+        </div>
+
     </main>
 
     <div id="confetti-container"></div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
