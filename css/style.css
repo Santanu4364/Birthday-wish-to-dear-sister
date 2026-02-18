@@ -85,6 +85,24 @@ h3 {
     overflow: hidden;
 }
 
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+    z-index: 1;
+    /* Above Chakra */
+    /* Hero Background Image */
+    background: linear-gradient(rgba(5, 10, 20, 0.4), rgba(5, 10, 20, 0.4)), url('../assets/hero-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 .stage {
     position: absolute;
     top: 0;
@@ -239,4 +257,46 @@ h3 {
         transform: translate(-50%, -50%) scale(1.5) rotate(360deg);
         opacity: 0.05;
     }
+}
+
+.card-phase {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.lbsnaa-logo-container {
+    margin-bottom: 2rem;
+    animation: floating 3s ease-in-out infinite;
+}
+
+.lbsnaa-logo {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Ensure celebration content is centered */
+.celebration-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }

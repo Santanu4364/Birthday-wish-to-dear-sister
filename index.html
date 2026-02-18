@@ -45,78 +45,100 @@
         <div id="stage-intro" class="stage active">
             <div class="hero-content" data-aos="fade-up">
                 <h1 class="hero-title">Happy Birthday</h1>
-                <h2 class="hero-subtitle">Future Officer</h2>
+                <h2 class="hero-subtitle">THE LADY SINGHAM</h2>
+
+                <div class="hero-quote-container">
+                    <p class="hero-quote">"The distance between dreams and reality is called discipline."</p>
+                </div>
+
                 <div class="mission-btn-container">
-                    <button id="start-mission-btn" class="glow-button">Review Mission</button>
+                    <button id="start-mission-btn" class="glow-button">Begin the Journey</button>
                 </div>
             </div>
         </div>
 
-        <!-- STAGE 2: THE BRIEFING (Interactive Cards) -->
+        <!-- STAGE 2: THE BRIEFING (Timeline Phases) -->
         <div id="stage-briefing" class="stage">
             <div class="card-container">
-                <!-- Card 1: Ambition -->
+                <!-- Phase 1 -->
                 <div class="mission-card active" data-step="1">
-                    <h3 class="card-title">The Ambition</h3>
-                    <p class="card-text">"Some people celebrate birthdays.<br>You celebrate destiny in progress."</p>
-                    <div class="icon-gold">🦁</div>
+                    <div class="card-phase">Phase 1</div>
+                    <h3 class="card-title">The Beginning</h3>
+                    <p class="card-text">Every journey starts with a single step. The decision to serve the nation.</p>
+                    <div class="icon-gold">📖</div>
                 </div>
 
-                <!-- Card 2: The Grind -->
+                <!-- Phase 2 -->
                 <div class="mission-card" data-step="2">
+                    <div class="card-phase">Phase 2</div>
                     <h3 class="card-title">The Grind</h3>
-                    <p class="card-text">Early mornings. Late nights. The silent battles no one sees.<br>Every page
-                        turned is a step closer.</p>
-                    <div class="icon-gold">📚</div>
+                    <p class="card-text">Endless nights, Sea of Books, and the silence of 4 AM.</p>
+                    <div class="icon-gold">☕</div>
                 </div>
 
-                <!-- Card 3: The Qualities -->
+                <!-- Phase 3 -->
                 <div class="mission-card" data-step="3">
-                    <h3 class="card-title">The Officer</h3>
-                    <div class="qualities-grid">
-                        <span>⚖️ Integrity</span>
-                        <span>🦁 Courage</span>
-                        <span>🎯 Discipline</span>
-                        <span>🤝 Empathy</span>
-                    </div>
-                    <p class="card-text">You already wear the uniform in your spirit.</p>
+                    <div class="card-phase">Phase 3</div>
+                    <h3 class="card-title">Resilience</h3>
+                    <p class="card-text">Falling down seven times, standing up eight. Strength in adversity.</p>
+                    <div class="icon-gold">🌅</div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="mission-card" data-step="4">
+                    <div class="card-phase">Future</div>
+                    <h3 class="card-title">The Goal</h3>
+                    <p class="card-text">LBSNAA calling. The dream is closer than it appears.</p>
+                    <div class="icon-gold">⭐</div>
                 </div>
             </div>
 
             <div class="briefing-controls">
-                <button id="next-card-btn" class="secondary-button">Next Directive >></button>
+                <button id="next-card-btn" class="secondary-button">Next Phase >></button>
             </div>
         </div>
 
         <!-- STAGE 3: CELEBRATION (Finale) -->
         <div id="stage-celebration" class="stage">
-            <h2 class="section-title">Mission Status: Accomplished</h2>
+            <div class="celebration-content">
+                <div class="lbsnaa-logo-container">
+                    <img src="assets/lbsnaa.png" alt="LBSNAA Logo" class="lbsnaa-logo">
+                </div>
 
-            <!-- Message -->
-            <div class="final-message glass-card">
-                <h3>To the Future IPS,</h3>
-                <p>
-                    May this year bring you closer to your goal. The nation needs officers like the one you are shaping
-                    yourself to be.
-                    <br><br>
-                    <strong>Happy Birthday!</strong>
-                </p>
+                <h2 class="section-title">Mission Status: Accomplished</h2>
+
+                <!-- Message -->
+                <div class="final-message glass-card">
+                    <h3>To the Future IPS,</h3>
+                    <p>
+                        To the one who studies while the world sleeps,<br>
+                        May your determination shine brighter than any candle.
+                        <br><br>
+                        Your journey from <strong>Delhi</strong> to <strong>LBSNAA</strong> is written in the stars.
+                        <br><br>
+                        <strong>Happy Birthday!</strong>
+                    </p>
+                </div>
+
+                <!-- Mini Gallery -->
+                <div id="lightgallery" class="gallery-grid-mini">
+                    <!-- User to replace these specific paths -->
+                    <a href="assets/placeholder.jpg" class="gallery-item glass-card">
+                        <div class="placeholder-img-sm">Memories</div>
+                    </a>
+                    <a href="assets/placeholder.jpg" class="gallery-item glass-card">
+                        <div class="placeholder-img-sm">Dreams</div>
+                    </a>
+                    <a href="assets/placeholder.jpg" class="gallery-item glass-card">
+                        <div class="placeholder-img-sm">Joy</div>
+                    </a>
+                    <a href="assets/placeholder.jpg" class="gallery-item glass-card">
+                        <div class="placeholder-img-sm">Success</div>
+                    </a>
+                </div>
+
+                <button id="replay-btn" class="secondary-button" style="margin-top: 2rem;">Replay Mission</button>
             </div>
-
-            <!-- Mini Gallery -->
-            <div id="lightgallery" class="gallery-grid-mini">
-                <a href="assets/placeholder.jpg" class="gallery-item glass-card">
-                    <div class="placeholder-img-sm">Memories</div>
-                </a>
-                <a href="assets/placeholder.jpg" class="gallery-item glass-card">
-                    <div class="placeholder-img-sm">Dreams</div>
-                </a>
-                <a href="assets/placeholder.jpg" class="gallery-item glass-card">
-                    <div class="placeholder-img-sm">Joy</div>
-                </a>
-            </div>
-
-            <button id="replay-btn" class="secondary-button" style="margin-top: 2rem;">Replay Mission</button>
         </div>
 
     </main>

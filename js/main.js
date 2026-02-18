@@ -51,7 +51,7 @@ function initStageSystem() {
 
                 // Change button text on last card
                 if (currentCardIndex === cards.length - 1) {
-                    btnNextCard.textContent = "Complete Mission >>";
+                    btnNextCard.textContent = "Mission Complete >>";
                 }
             } else {
                 // All cards done, Transition: Briefing -> Celebration
@@ -144,8 +144,9 @@ function initParticles() {
             this.size = Math.random() * 2 + 0.5;
             this.speedX = Math.random() * 0.5 - 0.25;
             this.speedY = Math.random() * 0.5 - 0.25;
-            // Particles: Dark Navy with low opacity for subtle contrast on cream background
-            this.color = `rgba(26, 37, 58, ${Math.random() * 0.3 + 0.1})`;
+            // Particles: Gold and White for visibility on dark overlay
+            const colors = ['rgba(212, 175, 55, 0.4)', 'rgba(255, 255, 255, 0.3)'];
+            this.color = colors[Math.floor(Math.random() * colors.length)];
         }
 
         update() {
